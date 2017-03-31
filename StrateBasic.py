@@ -11,7 +11,8 @@ cadavresBleus = []
 meleeRouge = []
 meleeBleue = []
 champ = 0
-
+aff = 1
+norm = True
 def fight(p):
     r = random.randint(1,100)
     if p > r:
@@ -58,10 +59,46 @@ def tpe(t):
     if t == 'A':
         return 'Artilleur'
 
-
+resp = raw_input('Enter pour commencer...')
+if resp == 'special':
+    norm = False
 while True:
-    armeeRouge = ['F','F','F','F','F','F','F','F','F','F','F','C','C','C','C','C','A','A']
-    armeeBleue = ['F','F','F','F','F','F','F','F','F','F','F','C','C','C','C','C','A','A']
+    if norm:
+        armeeRouge = ['F','F','F','F','F','F','F','F','F','F','F','C','C','C','C','C','A','A']
+        armeeBleue = ['F','F','F','F','F','F','F','F','F','F','F','C','C','C','C','C','A','A']
+    else:
+        armeeRouge = []
+        armeeBleue = []
+        print "\ncustomisation de l'armée rouge:\n"
+        while True:
+            f = raw_input('Fantassins: ')
+            c = raw_input('Cavaliers: ')
+            a = raw_input('Artilleurs: ')
+            try:
+                for i in range(int(f)):
+                    armeeRouge.append('F')
+                for i in range(int(c)):
+                    armeeRouge.append('C')
+                for i in range(int(a)):
+                    armeeRouge.append('A')
+                break
+            except:
+                 print 'ERREUR Nombres Entiers Requis !'
+        print "\ncustomisation de l'armée bleue:\n"
+        while True:
+            f = raw_input('Fantassins: ')
+            c = raw_input('Cavaliers: ')
+            a = raw_input('Artilleurs: ')
+            try: 
+                for i in range(int(f)):
+                    armeeBleue.append('F')
+                for i in range(int(c)):
+                    armeeBleue.append('C')
+                for i in range(int(a)):
+                    armeeBleue.append('A')
+                break
+            except:
+                print 'ERREUR Nombres Entiers Requis !'
     blessesRouges = []
     blessesBleus = []
     cadavresRouges = []
@@ -69,6 +106,7 @@ while True:
     meleeRouge = []
     meleeBleue = []
     champ = 0
+    aff = 1
     print '\n\n\n\n\n\n------ Nouvelle Battaille ------'
     while True:
         meleeRouge = random.sample(range(len(armeeRouge)), len(armeeRouge))
@@ -81,6 +119,7 @@ while True:
         else:
             champ = len(meleeBleue)
             ga = 'Rouge'
+        print '\n------ Affrontement', aff, '------'
         print "\nl'armée rouge est constituée de:"
         print count(armeeRouge, 'F'), 'Fantassins', '(', count(cadavresRouges, 'F'), 'morts )'
         print count(armeeRouge, 'C'), 'Cavaliers', '(', count(cadavresRouges, 'C'), 'morts )'
@@ -101,7 +140,7 @@ while True:
             else:
                 cadavresRouges.append(armeeRouge[meleeRouge[d]])
                 blessesRouges.append(meleeRouge[d])
-                print 'le', tpe(armeeBleue[meleeRouge[d]]), 'bleu gangne!'
+                print 'le', tpe(armeeBleue[meleeBleue[d]]), 'bleu gangne!'
         if ga == 'Rouge':        
             for g in range(ct, len(meleeRouge)):
                 print '\nun', tpe(armeeRouge[meleeRouge[g]]), 'rouge ne se bat pas'
@@ -129,9 +168,14 @@ while True:
             print count(armeeRouge, 'C'), 'Cavaliers', '(', count(cadavresRouges, 'C'), 'morts )'
             print count(armeeRouge, 'A'), 'Artilleurs', '(', count(cadavresRouges, 'A'), 'morts )'
             break
-        
+        aff += 1
         waste = raw_input("\nvoir le prochain affrontement (Enter) ?")
-    resp = raw_input("rejouer? ")
+        print '\n' * 10
+    resp = raw_input("\nrejouer? ")
     if resp == 'non':
         break
+    if resp == 'normal':
+        norm = True
+    if resp == 'special':
+        norm == False
 
