@@ -58,9 +58,18 @@ def tpe(t):
     if t == 'A':
         return 'Artilleur'
 
-print "l'armée rouge se bat contre l'armée bleue \n"
 
 while True:
+    armeeRouge = ['F','F','F','F','F','F','F','F','F','F','F','C','C','C','C','C','A','A']
+    armeeBleue = ['F','F','F','F','F','F','F','F','F','F','F','C','C','C','C','C','A','A']
+    blessesRouges = []
+    blessesBleus = []
+    cadavresRouges = []
+    cadavresBleus = []
+    meleeRouge = []
+    meleeBleue = []
+    champ = 0
+    print '\n\n\n\n\n\n------ Nouvelle Battaille ------'
     while True:
         meleeRouge = random.sample(range(len(armeeRouge)), len(armeeRouge))
         meleeBleue = random.sample(range(len(armeeBleue)), len(armeeBleue))
