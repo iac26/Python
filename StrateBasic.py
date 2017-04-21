@@ -1,18 +1,8 @@
 # -*- coding: cp1252 -*-
 import random
 
-
-armeeRouge = ['F','F','F','F','F','F','F','F','F','F','F','C','C','C','C','C','A','A']
-armeeBleue = ['F','F','F','F','F','F','F','F','F','F','F','C','C','C','C','C','A','A']
-blessesRouges = []
-blessesBleus = []
-cadavresRouges = []
-cadavresBleus = []
-meleeRouge = []
-meleeBleue = []
-champ = 0
-aff = 1
 norm = True
+
 def fight(p):
     r = random.randint(1,100)
     if p > r:
@@ -32,7 +22,7 @@ def duel(a,b):
             return fight(10)
     if a == 'C':
         if b == 'F':
-            return fight(60)
+            return fight(70)
         if b == 'C':
             return fight(50)
         if b == 'A':
@@ -107,12 +97,14 @@ while True:
     meleeBleue = []
     champ = 0
     aff = 1
+
     print '\n\n\n\n\n\n------ Nouvelle Battaille ------'
     while True:
         meleeRouge = random.sample(range(len(armeeRouge)), len(armeeRouge))
         meleeBleue = random.sample(range(len(armeeBleue)), len(armeeBleue))
         blessesBleus = []
         blessesRouges = []
+        glandeurs = []
         if len(meleeRouge) <= len(meleeBleue):
             champ = len(meleeRouge)
             ga = 'Bleue'
@@ -144,10 +136,94 @@ while True:
         if ga == 'Rouge':        
             for g in range(ct, len(meleeRouge)):
                 print '\nun', tpe(armeeRouge[meleeRouge[g]]), 'rouge ne se bat pas'
+                glandeurs.append(armeeRouge[meleeRouge[g]])
         elif ga == 'Bleue':
             for g in range(ct, len(meleeBleue)):
                 print '\nun', tpe(armeeBleue[meleeBleue[g]]), 'bleu ne se bat pas'
-            
+                glandeurs.append(armeeBleue[meleeBleue[g]])
+
+        while True:
+            ctg = 0
+            grid = [' ' for i in range(36)]
+            comb1 = [' ' for i in range(36)]
+            comb2 = [' ' for i in range(36)]
+            for x in range(champ*2):
+                    if grid[x] == ' ':
+                        r1 = random.randint(0,1)
+                        ok = False
+                        a = armeeRouge[meleeRouge[ctg]] 
+                        b = armeeBleue[meleeBleue[ctg]] 
+                        if r1:
+                            if x not in [5,11,17,23,29,35]:
+                                if grid[x+1] == ' ':
+                                    grid[x+1] = b 
+                                    grid[x] = a
+                                    comb2[x] = 'x'
+                                    ok = True
+                                    ctg += 1
+                                elif x not in [30,31,32,33,34,35]:
+                                    if grid[x+6] == ' ':
+                                        grid[x+6] = b 
+                                        grid[x] = a 
+                                        comb1[x] = 'x'
+                                        ok = True
+                                        ctg += 1
+                            elif x not in [30,31,32,33,34,35]:
+                                if grid[x+6] == ' ':
+                                    grid[x+6] = b 
+                                    grid[x] = a 
+                                    comb1[x] = 'x'
+                                    ok = True
+                                    ctg += 1
+                        else:
+                            if x not in [30,31,32,33,34,35]:
+                                if grid[x+6] == ' ':
+                                    grid[x+6] = b 
+                                    grid[x] = a 
+                                    comb1[x] = 'x'
+                                    ok = True
+                                    ctg += 1
+                                elif x not in [5,11,17,23,29,35]:
+                                    if grid[x+1] == ' ':
+                                        grid[x+1] = b 
+                                        grid[x] = a
+                                        comb2[x] = 'x'
+                                        ok = True
+                                        ctg += 1
+                            elif x not in [5,11,17,23,29,35]:
+                                if grid[x+1] == ' ':
+                                    grid[x+1] = b 
+                                    grid[x] = a
+                                    comb2[x] = 'x'
+                                    ok = True
+                                    ctg += 1
+                    else:
+                        ok = True
+                    if not ok:
+                        break
+                    if not ctg < champ:
+                        break
+            if ok:
+                break
+        ct1 = 0
+        ct2 = 0
+        ct3 = 0
+        st = '\n'
+        for a in range(6):
+            for b in range(6):
+                if grid[ct1] == ' ' and ct3 < len(glandeurs):
+                    st += glandeurs[ct3] + '   '
+                    ct3 += 1
+                else:
+                    st += grid[ct1]+' '+ comb2[ct1]+' '
+                ct1 += 1
+            st += '\n'
+            for c in range(6):
+                st += comb1[ct2] + '   '
+                ct2 += 1
+            st += '\n'
+
+        print st
         blessesBleus.sort(reverse=True)
         blessesRouges.sort(reverse=True)
         for b in blessesBleus:
