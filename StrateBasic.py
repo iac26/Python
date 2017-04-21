@@ -3,6 +3,8 @@ import random
 
 norm = True
 
+def cls():
+    print "\n"*100
 
 #retourne un booleen selon des probabilités 
 def fight(p):
@@ -56,6 +58,7 @@ def tpe(t):
 
 
 resp = raw_input('Enter pour commencer...')
+cls()
 if resp == 'special':
     norm = False
 while True:
@@ -105,7 +108,8 @@ while True:
     champ = 0 # taille de l'armée la plus petite
     aff = 1 # numero de l'affrontement
 
-    print '\n\n\n\n\n\n------ Nouvelle Battaille ------'
+    cls()
+    print '------ Nouvelle Battaille ------'
     while True:
         #arrangements des duels 
         meleeRouge = random.sample(range(len(armeeRouge)), len(armeeRouge))
@@ -262,7 +266,7 @@ while True:
             break
         aff += 1
         waste = raw_input("\nvoir le prochain affrontement (Enter) ?")
-        print '\n' * 10
+        cls()
     resp = raw_input("\nrejouer? ")
     if resp == 'non':
         break
