@@ -1,5 +1,6 @@
 # -*- coding: cp1252 -*-
 import random
+import math
 
 norm = True
 
@@ -107,6 +108,15 @@ while True:
     meleeBleue = []  #contient les index des soldats vivants (Bleus) (dure un affrontement)
     champ = 0 # taille de l'armée la plus petite
     aff = 1 # numero de l'affrontement
+    taille = len(armeeRouge) + len(armeeBleue)
+    cote = int(math.ceil(math.sqrt(taille)))
+    taille = cote**2
+    droite = []
+    bas = []
+    for i in range(cote-1,taille,cote):
+        droite.append(i)
+    for i in range(taille-cote, taille):
+        bas.append(i)
 
     cls()
     print '------ Nouvelle Battaille ------'
@@ -126,15 +136,15 @@ while True:
             ga = 'Rouge'
         #affichage des effectifs
         print '\n------ Affrontement', aff, '------'
-        print "\nl'armée rouge est constituée de", len(armeeRouge), 'soldat:' if len(armeeRouge) == 1 else 'soldats:'
+        print "\nL'armée rouge est constituée de", len(armeeRouge), 'soldat:' if len(armeeRouge) == 1 else 'soldats:'
         print count(armeeRouge, 'F'), 'Fantassin' if count(armeeRouge, 'F') == 1 else 'Fantassins' , '(', count(cadavresRouges, 'F'), 'mort )' if count(cadavresRouges, 'F') == 1 else 'morts )'
         print count(armeeRouge, 'C'), 'Cavalier' if count(armeeRouge, 'C') == 1 else 'Cavaliers' , '(', count(cadavresRouges, 'C'), 'mort )' if count(cadavresRouges, 'C') == 1 else 'morts )'
         print count(armeeRouge, 'A'), 'Artilleur' if count(armeeRouge, 'A') == 1 else 'Artilleurs' , '(', count(cadavresRouges, 'A'), 'mort )' if count(cadavresRouges, 'A') == 1 else 'morts )'
-        print "\nl'armée bleue est constituée de", len(armeeBleue), 'soldat:' if len(armeeBleue) == 1 else 'soldats:'
+        print "\nL'armée bleue est constituée de", len(armeeBleue), 'soldat:' if len(armeeBleue) == 1 else 'soldats:'
         print count(armeeBleue, 'F'), 'Fantassin' if count(armeeBleue, 'F') == 1 else 'Fantassins' , '(', count(cadavresBleus, 'F'), 'mort )' if count(cadavresBleus, 'F') == 1 else 'morts )'
         print count(armeeBleue, 'C'), 'Cavalier' if count(armeeBleue, 'C') == 1 else 'Cavaliers' , '(', count(cadavresBleus, 'C'), 'mort )' if count(cadavresBleus, 'C') == 1 else 'morts )'
         print count(armeeBleue, 'A'), 'Artilleur' if count(armeeBleue, 'A') == 1 else 'Artilleurs' , '(', count(cadavresBleus, 'A'), 'mort )' if count(cadavresBleus, 'A') == 1 else 'morts )'
-        waste = raw_input("\ncommencer l'affrontement (Enter) ?") 
+        waste = raw_input("\nCommencer l'affrontement (Enter) ?") 
         ct = 0
         #calcul des duels et des gagnants + affichage
         for d in range(champ):
@@ -143,11 +153,11 @@ while True:
             if duel(armeeRouge[meleeRouge[d]], armeeBleue[meleeBleue[d]]):
                 cadavresBleus.append(armeeBleue[meleeBleue[d]])
                 blessesBleus.append(meleeBleue[d])
-                print 'l\'' if armeeRouge[meleeRouge[d]] == 'A' else 'le', tpe(armeeRouge[meleeRouge[d]]), 'rouge gangne!'
+                print 'l\'' if armeeRouge[meleeRouge[d]] == 'A' else 'le', tpe(armeeRouge[meleeRouge[d]]), 'rouge gagne!'
             else:
                 cadavresRouges.append(armeeRouge[meleeRouge[d]])
                 blessesRouges.append(meleeRouge[d])
-                print 'l\'' if armeeBleue[meleeBleue[d]] == 'A' else 'le', tpe(armeeBleue[meleeBleue[d]]), 'bleu gangne!'
+                print 'l\'' if armeeBleue[meleeBleue[d]] == 'A' else 'le', tpe(armeeBleue[meleeBleue[d]]), 'bleu gagne!'
         #calcul des soldats sans adversaire + affichage
         if ga == 'Rouge':        
             for g in range(ct, len(meleeRouge)):
@@ -157,56 +167,56 @@ while True:
             for g in range(ct, len(meleeBleue)):
                 print '\nun', tpe(armeeBleue[meleeBleue[g]]), 'bleu ne se bat pas'
                 glandeurs.append(armeeBleue[meleeBleue[g]])
-        #répartition des soldats dans le champ de battaille 
+        #répartition des soldats dans le champ de battaille
         while True:
             ctg = 0
-            grid = [' ' for i in range(36)]
-            comb1 = [' ' for i in range(36)]
-            comb2 = [' ' for i in range(36)]
+            grid = [' ' for i in range(taille)]
+            comb1 = [' ' for i in range(taille)]
+            comb2 = [' ' for i in range(taille)]
             for x in range(champ*2):
                     if grid[x] == ' ':
                         r1 = random.randint(0,1)
                         ok = False
                         a = armeeRouge[meleeRouge[ctg]] 
-                        b = armeeBleue[meleeBleue[ctg]] 
+                        b = armeeBleue[meleeBleue[ctg]]
                         if r1:
-                            if x not in [5,11,17,23,29,35]:
+                            if x not in droite:
                                 if grid[x+1] == ' ':
                                     grid[x+1] = b 
                                     grid[x] = a
                                     comb2[x] = 'x'
                                     ok = True
                                     ctg += 1
-                                elif x not in [30,31,32,33,34,35]:
-                                    if grid[x+6] == ' ':
-                                        grid[x+6] = b 
+                                elif x not in bas:
+                                    if grid[x+cote] == ' ':
+                                        grid[x+cote] = b 
                                         grid[x] = a 
                                         comb1[x] = 'x'
                                         ok = True
                                         ctg += 1
-                            elif x not in [30,31,32,33,34,35]:
-                                if grid[x+6] == ' ':
-                                    grid[x+6] = b 
+                            elif x not in bas:
+                                if grid[x+cote] == ' ':
+                                    grid[x+cote] = b 
                                     grid[x] = a 
                                     comb1[x] = 'x'
                                     ok = True
                                     ctg += 1
                         else:
-                            if x not in [30,31,32,33,34,35]:
-                                if grid[x+6] == ' ':
-                                    grid[x+6] = b 
+                            if x not in bas:
+                                if grid[x+cote] == ' ':
+                                    grid[x+cote] = b 
                                     grid[x] = a 
                                     comb1[x] = 'x'
                                     ok = True
                                     ctg += 1
-                                elif x not in [5,11,17,23,29,35]:
+                                elif x not in droite:
                                     if grid[x+1] == ' ':
                                         grid[x+1] = b 
                                         grid[x] = a
                                         comb2[x] = 'x'
                                         ok = True
                                         ctg += 1
-                            elif x not in [5,11,17,23,29,35]:
+                            elif x not in droite:
                                 if grid[x+1] == ' ':
                                     grid[x+1] = b 
                                     grid[x] = a
@@ -227,8 +237,8 @@ while True:
         ct3 = 0
         st = ' '
         st += '\n'
-        for a in range(6):
-            for b in range(6):
+        for a in range(cote):
+            for b in range(cote):
                 if grid[ct1] == ' ' and ct3 < len(glandeurs):
                     st += glandeurs[ct3] + '   '
                     ct3 += 1
@@ -236,7 +246,7 @@ while True:
                     st += grid[ct1]+' '+ comb2[ct1]+' '
                 ct1 += 1
             st += '\n'
-            for c in range(6):
+            for c in range(cote):
                 st += comb1[ct2] + '   '
                 ct2 += 1
             st += '\n'
@@ -251,15 +261,15 @@ while True:
             armeeRouge.pop(r)
         #conditions de victoire + affichage des effectifs de l'armée vaincqueure 
         if len(armeeRouge) == 0:
-            print "\n\n\nl'armée bleue gagne!"
-            print "\nelle est encore constituée de", len(armeeBleue), 'soldat:' if len(armeeBleue) == 1 else 'soldats:'
+            print "\n\n\nL'armée bleue gagne en",aff,"affrontement!" if aff == 1 else "affrontements!"
+            print "\nElle est encore constituée de", len(armeeBleue), 'soldat:' if len(armeeBleue) == 1 else 'soldats:'
             print count(armeeBleue, 'F'), 'Fantassin' if count(armeeBleue, 'F') == 1 else 'Fantassins' , '(', count(cadavresBleus, 'F'), 'mort )' if count(cadavresBleus, 'F') == 1 else 'morts )'
             print count(armeeBleue, 'C'), 'Cavalier' if count(armeeBleue, 'C') == 1 else 'Cavaliers' , '(', count(cadavresBleus, 'C'), 'mort )' if count(cadavresBleus, 'C') == 1 else 'morts )'
             print count(armeeBleue, 'A'), 'Artilleur' if count(armeeBleue, 'A') == 1 else 'Artilleurs' , '(', count(cadavresBleus, 'A'), 'mort )' if count(cadavresBleus, 'A') == 1 else 'morts )'
             break
         if len(armeeBleue) == 0:
-            print "\nl'armée rouge gagne!"
-            print "\nelle est encore constituée de", len(armeeRouge), 'soldat:' if len(armeeRouge) == 1 else 'soldats:'
+            print "\nL'armée rouge gagne en",aff,"affrontement!" if aff == 1 else "affrontements!"
+            print "\nElle est encore constituée de", len(armeeRouge), 'soldat:' if len(armeeRouge) == 1 else 'soldats:'
             print count(armeeRouge, 'F'), 'Fantassin' if count(armeeRouge, 'F') == 1 else 'Fantassins' , '(', count(cadavresRouges, 'F'), 'mort )' if count(cadavresRouges, 'F') == 1 else 'morts )'
             print count(armeeRouge, 'C'), 'Cavalier' if count(armeeRouge, 'C') == 1 else 'Cavaliers' , '(', count(cadavresRouges, 'C'), 'mort )' if count(cadavresRouges, 'C') == 1 else 'morts )'
             print count(armeeRouge, 'A'), 'Artilleur' if count(armeeRouge, 'A') == 1 else 'Artilleurs' , '(', count(cadavresRouges, 'A'), 'mort )' if count(cadavresRouges, 'A') == 1 else 'morts )'
