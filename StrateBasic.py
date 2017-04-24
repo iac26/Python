@@ -136,11 +136,11 @@ while True:
             ga = 'Rouge'
         #affichage des effectifs
         print '\n------ Affrontement', aff, '------'
-        print "\nL'armée rouge est constituée de", len(armeeRouge), 'soldat:' if len(armeeRouge) == 1 else 'soldats:'
+        print "\nL'armée rouge est constituée de", len(armeeRouge), 'soldat' if len(armeeRouge) == 1 else 'soldats', '(', len(cadavresRouges), 'mort ):' if len(cadavresRouges) == 1 else 'morts ):'
         print count(armeeRouge, 'F'), 'Fantassin' if count(armeeRouge, 'F') == 1 else 'Fantassins' , '(', count(cadavresRouges, 'F'), 'mort )' if count(cadavresRouges, 'F') == 1 else 'morts )'
         print count(armeeRouge, 'C'), 'Cavalier' if count(armeeRouge, 'C') == 1 else 'Cavaliers' , '(', count(cadavresRouges, 'C'), 'mort )' if count(cadavresRouges, 'C') == 1 else 'morts )'
         print count(armeeRouge, 'A'), 'Artilleur' if count(armeeRouge, 'A') == 1 else 'Artilleurs' , '(', count(cadavresRouges, 'A'), 'mort )' if count(cadavresRouges, 'A') == 1 else 'morts )'
-        print "\nL'armée bleue est constituée de", len(armeeBleue), 'soldat:' if len(armeeBleue) == 1 else 'soldats:'
+        print "\nL'armée bleue est constituée de", len(armeeBleue), 'soldat:' if len(armeeBleue) == 1 else 'soldats', '(', len(cadavresBleus), 'mort ):' if len(cadavresBleus) == 1 else 'morts ):'
         print count(armeeBleue, 'F'), 'Fantassin' if count(armeeBleue, 'F') == 1 else 'Fantassins' , '(', count(cadavresBleus, 'F'), 'mort )' if count(cadavresBleus, 'F') == 1 else 'morts )'
         print count(armeeBleue, 'C'), 'Cavalier' if count(armeeBleue, 'C') == 1 else 'Cavaliers' , '(', count(cadavresBleus, 'C'), 'mort )' if count(cadavresBleus, 'C') == 1 else 'morts )'
         print count(armeeBleue, 'A'), 'Artilleur' if count(armeeBleue, 'A') == 1 else 'Artilleurs' , '(', count(cadavresBleus, 'A'), 'mort )' if count(cadavresBleus, 'A') == 1 else 'morts )'
@@ -262,14 +262,14 @@ while True:
         #conditions de victoire + affichage des effectifs de l'armée vaincqueure 
         if len(armeeRouge) == 0:
             print "\n\n\nL'armée bleue gagne en",aff,"affrontement!" if aff == 1 else "affrontements!"
-            print "\nElle est encore constituée de", len(armeeBleue), 'soldat:' if len(armeeBleue) == 1 else 'soldats:'
+            print "\nElle est encore constituée de", len(armeeBleue), 'soldat' if len(armeeBleue) == 1 else 'soldats', '(', len(cadavresRouges), 'mort ):' if len(cadavresRouges) == 1 else 'morts ):'
             print count(armeeBleue, 'F'), 'Fantassin' if count(armeeBleue, 'F') == 1 else 'Fantassins' , '(', count(cadavresBleus, 'F'), 'mort )' if count(cadavresBleus, 'F') == 1 else 'morts )'
             print count(armeeBleue, 'C'), 'Cavalier' if count(armeeBleue, 'C') == 1 else 'Cavaliers' , '(', count(cadavresBleus, 'C'), 'mort )' if count(cadavresBleus, 'C') == 1 else 'morts )'
             print count(armeeBleue, 'A'), 'Artilleur' if count(armeeBleue, 'A') == 1 else 'Artilleurs' , '(', count(cadavresBleus, 'A'), 'mort )' if count(cadavresBleus, 'A') == 1 else 'morts )'
             break
         if len(armeeBleue) == 0:
             print "\nL'armée rouge gagne en",aff,"affrontement!" if aff == 1 else "affrontements!"
-            print "\nElle est encore constituée de", len(armeeRouge), 'soldat:' if len(armeeRouge) == 1 else 'soldats:'
+            print "\nElle est encore constituée de", len(armeeRouge), 'soldat' if len(armeeRouge) == 1 else 'soldats', '(', len(cadavresBleus), 'mort ):' if len(cadavresBleus) == 1 else 'morts ):'
             print count(armeeRouge, 'F'), 'Fantassin' if count(armeeRouge, 'F') == 1 else 'Fantassins' , '(', count(cadavresRouges, 'F'), 'mort )' if count(cadavresRouges, 'F') == 1 else 'morts )'
             print count(armeeRouge, 'C'), 'Cavalier' if count(armeeRouge, 'C') == 1 else 'Cavaliers' , '(', count(cadavresRouges, 'C'), 'mort )' if count(cadavresRouges, 'C') == 1 else 'morts )'
             print count(armeeRouge, 'A'), 'Artilleur' if count(armeeRouge, 'A') == 1 else 'Artilleurs' , '(', count(cadavresRouges, 'A'), 'mort )' if count(cadavresRouges, 'A') == 1 else 'morts )'
