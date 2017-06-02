@@ -157,7 +157,7 @@ def create_key():
     key = private_key(name, p, q, e, d)
     private_keys.append(key)
     key = public_key(name, e, n)
-    public1_keys.append(key)
+    public_keys.append(key)
     return
     
 def add_key():
