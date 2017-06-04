@@ -1,6 +1,6 @@
 #problem 4 project Euler
-
-
+import time
+t = time.time()
 
 biggest = 999
 
@@ -39,36 +39,14 @@ def mul((a,b)):
     return a*b
 
 def optimized(biggest):
-    a = biggest
-    b = biggest
-    g = biggest
-    last = [(99,99)]
-    r = (biggest+1)**2
-    rp = r
-    while b > 0:
-        if a*b < (a-1)*g:
-            if not a == b:
-                last.append((a,b))
-            a -= 1
-            b = g
-        try:
-            t = last[0]
-        except:
-            t = (0,0)
-        if mul(t) > a*b:
-            if mul(t) < rp:
-                a = t[0]
-                b = t[1]
-                print 'insert'
-            last.pop(0)
-        rp = r
-        r = a*b
-        print a,b,r,rp
-        b -= 1
+    pass
     
         
 result = multiply(999)
+
+t2 = time.time()-t
 print result
+print 'solved in',t2,'sec'
         
     
 
