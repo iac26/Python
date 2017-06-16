@@ -6,6 +6,7 @@ import numpy as np
 import cv2
 import time
 import os
+import random
 
 
 os.system('asebamedulla "ser:name=Thymio-II" ')
@@ -289,11 +290,11 @@ for frame in camera.capture_continuous(rawCapture, format='bgr', use_video_port=
         if reverse: #marche arriere
             if right_reverse:
                 if (time.time() - rStart) < 3 :
-                    LSpeed = -50
-                    RSpeed = -50
-                elif (time.time() - rStart) < 7 :
                     LSpeed = -100
-                    RSpeed = -50
+                    RSpeed = -100
+                elif (time.time() - rStart) < random.randint(5,9) :
+                    LSpeed = -50
+                    RSpeed = 50
                 else:
                     reverse = False
                     right_reverse = False
@@ -302,11 +303,11 @@ for frame in camera.capture_continuous(rawCapture, format='bgr', use_video_port=
                     
             elif left_reverse:
                 if (time.time() - rStart) < 3 :
-                    LSpeed = -50
-                    RSpeed = -50
-                elif (time.time() - rStart) < 7 :
-                    LSpeed = -50
+                    LSpeed = -100
                     RSpeed = -100
+                elif (time.time() - rStart) < random.randint(5,9) :
+                    LSpeed = 50
+                    RSpeed = -50
                 else:      
                     rStart = 0
                     reverse = False
@@ -370,7 +371,7 @@ for frame in camera.capture_continuous(rawCapture, format='bgr', use_video_port=
 
 
     #GUI
-    cv2.imshow('iTExplorer', image)
+    cv2.imshow('Robot', image)
     #cv2.imwrite('stream.jpeg', image)
     key = cv2.waitKey(1) & 0xFF
 
