@@ -6,5 +6,6 @@ for n in range(1000):
     if n % 3 == 0 or n % 5 == 0:
         results.append(n)
 t2 = time.time()-t
-print results
+result = sum(results)
+print result
 print 'solved in',t2,'sec'

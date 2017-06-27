@@ -16,8 +16,8 @@ def multiply(biggest):
     a = biggest
     b = biggest
     res = []
-    for i in range(a):
-        for j in range(i):
+    for i in range(100,a):
+        for j in range(100,i):
             r = i*j
             if is_pal(r):
                 res.append(r)
